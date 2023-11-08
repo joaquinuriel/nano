@@ -5,17 +5,16 @@ import {
   IonHeader,
   IonIcon,
   IonItem,
-  IonLabel,
   IonList,
   IonPage,
   IonTitle,
   IonToolbar,
   useIonModal,
 } from '@ionic/react';
-import { doc } from 'firebase/firestore';
 import { person } from 'ionicons/icons';
 import { useRef } from 'react';
-import { useFirestore, useFirestoreDocData, useUser } from 'reactfire';
+import { useFirestore, useUser } from 'reactfire';
+import { ExploreContainer } from '../components/explore-container';
 import { Modal } from './modal';
 
 // import 'swiper/css/bundle';
@@ -23,7 +22,7 @@ import './home.css';
 
 export function Home(): JSX.Element {
   const page = useRef();
-  const fire = useFirestore();
+  // const fire = useFirestore();
 
   const { data } = useUser();
   // const user = doc(fire, 'users', data?.uid || "");
