@@ -26,8 +26,8 @@ export function Home(): JSX.Element {
   const fire = useFirestore();
 
   const { data } = useUser();
-  const user = doc(fire, 'users', data?.uid || "");
-  const info = useFirestoreDocData(user);
+  // const user = doc(fire, 'users', data?.uid || "");
+  // const info = useFirestoreDocData(user);
 
   const _slides = Array.from({ length: 50 }).map(
     (el, index) => `Slide ${index + 1}`,
@@ -73,10 +73,10 @@ export function Home(): JSX.Element {
         </IonHeader>
         <IonList inset>
           <IonItem>
-            <IonLabel>Hello {info.data.displayName}</IonLabel>
+            {/* <IonLabel>Hello {info.data.displayName}</IonLabel> */}
           </IonItem>
         </IonList>
-        {/* <ExploreContainer name="Tab 1 page" /> */}
+        <ExploreContainer name="Tab 1 page" />
       </IonContent>
     </IonPage>
   );
