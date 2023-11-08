@@ -1,3 +1,4 @@
+import type { SearchbarCustomEvent } from '@ionic/react';
 import {
   IonContent,
   IonHeader,
@@ -12,7 +13,7 @@ import {
 import { useStore } from '@nanostores/react';
 import { animate } from 'motion';
 import { atom } from 'nanostores';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import './Tab2.css';
 
@@ -24,6 +25,22 @@ export function Tab2(): JSX.Element {
   const _input = useStore($input);
 
   const [size, setSize] = useState<'large' | 'small' | undefined>('large');
+
+  const onFocus = useCallback(() => {
+    $focus.set(true);
+    animate('ion-header', { y: -44 });
+    animate('ion-content', { y: -44 });
+    setTimeout(() => {
+      setSize('large');
+    }, 300);
+  }, []);
+
+  const onBlur = useCallback((e: SearchbarCustomEvent) => {
+    $focus.set(false);
+    animate('ion-header', { y: 0 });
+    if (e.target.value) setSize(undefined);
+    else animate('ion-content', { y: 0 });
+  }, []);
 
   const _slides = useMemo(() => {
     return Array.from({ length: 5000 }).map(
@@ -46,28 +63,9 @@ export function Tab2(): JSX.Element {
           <IonToolbar>
             <IonSearchbar
               className="will-change-transform"
-              onIonBlur={(e) => {
-                $focus.set(false);
-                animate('ion-header', { y: 0 });
-                if (e.target.value) {
-                  setSize(undefined);
-                } else {
-                  animate('ion-content', { y: 0 });
-                }
-              }}
-              onIonClear={(_e) => {
-                // $focus.set(false);
-                // animate('ion-header', { y: 0 });
-                // animate('ion-content', { y: 0 });
-              }}
-              onIonFocus={() => {
-                $focus.set(true);
-                animate('ion-header', { y: -44 });
-                animate('ion-content', { y: -44 });
-                setTimeout(() => {
-                  setSize('large');
-                }, 300);
-              }}
+              onIonBlur={onBlur as never}
+              onIonFocus={onFocus}
+              // onIonClear={(_e) => {}}
             />
           </IonToolbar>
         </IonHeader>

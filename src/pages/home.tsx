@@ -13,7 +13,7 @@ import {
 } from '@ionic/react';
 import { person } from 'ionicons/icons';
 import { useRef } from 'react';
-import { useFirestore, useUser } from 'reactfire';
+import { useUser } from 'reactfire';
 import { ExploreContainer } from '../components/explore-container';
 import { Modal } from './modal';
 
