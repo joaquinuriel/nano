@@ -21,19 +21,19 @@ export function Tab3(): JSX.Element {
   const page = useRef();
   const input = useRef<HTMLInputElement>(null);
 
-  const storage = useStorage();
+  // const storage = useStorage();
   const photos = useStore($photos);
 
   const [value, setValue] = useState(0);
 
-  useEffect(() => {
-    photos.forEach((photo) => {
-      const dir = ref(storage, `images/${photo.name}`);
-      uploadBytesResumable(dir, photo).on('state_changed', (snap) => {
-        setValue(snap.bytesTransferred / snap.totalBytes / photos.length);
-      });
-    });
-  }, [storage, photos]);
+  // useEffect(() => {
+  //   photos.forEach((photo) => {
+  //     const dir = ref(storage, `images/${photo.name}`);
+  //     uploadBytesResumable(dir, photo).on('state_changed', (snap) => {
+  //       setValue(snap.bytesTransferred / snap.totalBytes / photos.length);
+  //     });
+  //   });
+  // }, [storage, photos]);
 
   return (
     <IonPage ref={page}>
@@ -57,9 +57,9 @@ export function Tab3(): JSX.Element {
               id="input"
               multiple
               onChange={(e) => {
+                
                 const array = Array.from(e.target.files || []);
                 $photos.set(array);
-                // files.current = Array.from(e.target.files || []);
               }}
               ref={input}
               type="file"

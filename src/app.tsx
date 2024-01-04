@@ -37,21 +37,22 @@ setupIonicReact({
 });
 
 export function App(): JSX.Element {
-  const app = useFirebaseApp();
-  const auth = getAuth(app);
-  const fire = getFirestore(app);
-  const store = getStorage(app);
+  // const app = useFirebaseApp();
+  // const auth = getAuth(app);
+  // const fire = getFirestore(app);
+  // const store = getStorage(app);
+
   return (
-    <AuthProvider sdk={auth}>
-      <FirestoreProvider sdk={fire}>
-        <StorageProvider sdk={store}>
-          <IonApp>
-            <IonReactRouter>
-              <Tabs />
-            </IonReactRouter>
-          </IonApp>
-        </StorageProvider>
-      </FirestoreProvider>
-    </AuthProvider>
+    // <AuthProvider sdk={auth}>
+    //   <FirestoreProvider sdk={fire}>
+    //     <StorageProvider sdk={store}>
+            <IonApp>
+              <IonReactRouter>
+                <Tabs />
+              </IonReactRouter>
+            </IonApp>
+    //     </StorageProvider>
+    //   </FirestoreProvider>
+    // </AuthProvider>
   );
 }

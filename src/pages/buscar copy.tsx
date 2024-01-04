@@ -1,3 +1,4 @@
+import type { SearchbarCustomEvent } from '@ionic/react';
 import {
   IonContent,
   IonHeader,
@@ -10,16 +11,36 @@ import {
   IonToolbar,
 } from '@ionic/react';
 import { useStore } from '@nanostores/react';
+import { animate } from 'motion';
 import { atom } from 'nanostores';
+import { useCallback, useState } from 'react';
 
 import './Tab2.css';
 
 const $focus = atom(false);
 const $input = atom('');
 
-export function Buscar(): JSX.Element {
-  const focus = useStore($focus);
+export function Tab2(): JSX.Element {
+  const _focus = useStore($focus);
   const _input = useStore($input);
+
+  const [size, setSize] = useState<'large' | 'small' | undefined>('large');
+
+  const onFocus = useCallback(() => {
+    $focus.set(true);
+    animate('ion-header', { y: -44 });
+    animate('ion-content', { y: -44 });
+    setTimeout(() => {
+      setSize('large');
+    }, 300);
+  }, []);
+
+  const onBlur = useCallback((e: SearchbarCustomEvent) => {
+    $focus.set(false);
+    animate('ion-header', { y: 0 });
+    if (e.target.value) setSize(undefined);
+    else animate('ion-content', { y: 0 });
+  }, []);
 
   // const _slides = useMemo(() => {
   //   return Array.from({ length: 5000 }).map(
@@ -29,27 +50,22 @@ export function Buscar(): JSX.Element {
 
   return (
     <IonPage>
-      <IonHeader collapse="fade" className="ion-no-border">
+      <IonHeader collapse="fade">
         <IonToolbar>
           <IonTitle>Tab 2</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
-          <IonToolbar className="!z-0">
-            <IonTitle size="large">Tab 2</IonTitle>
+          <IonToolbar>
+            <IonTitle size={size}>Tab 2</IonTitle>
           </IonToolbar>
-        </IonHeader>
-        <IonHeader collapse='fade' className="sticky top-0">
           <IonToolbar>
             <IonSearchbar
-              // animated
-              onBlur={() => {
-                $focus.set(false);
-              }}
-              onFocus={() => {
-                $focus.set(true);
-              }}
+              className="will-change-transform"
+              onIonBlur={onBlur as never}
+              onIonFocus={onFocus}
+              // onIonClear={(_e) => {}}
             />
           </IonToolbar>
         </IonHeader>

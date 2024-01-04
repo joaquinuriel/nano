@@ -24,7 +24,7 @@ export function Home(): JSX.Element {
   const page = useRef();
   // const fire = useFirestore();
 
-  const { data } = useUser();
+  // const { data } = useUser();
   // const user = doc(fire, 'users', data?.uid || "");
   // const info = useFirestoreDocData(user);
 
@@ -32,7 +32,7 @@ export function Home(): JSX.Element {
     (el, index) => `Slide ${index + 1}`,
   );
 
-  const [present, dismiss] = useIonModal(data ? Modal : Modal, {
+  const [present, dismiss] = useIonModal(Modal, {
     onClick() {
       dismiss();
     },

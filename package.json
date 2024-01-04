@@ -26,6 +26,7 @@
     "@supabase/supabase-js": "^2.38.3",
     "@tanstack/react-virtual": "beta",
     "firebase": "^10.5.2",
+    "framer-motion": "^10.16.5",
     "ionicons": "^7.0.0",
     "million": "^2.6.4",
     "motion": "^10.16.4",
